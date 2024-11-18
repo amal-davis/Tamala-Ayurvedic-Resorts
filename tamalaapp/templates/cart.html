@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jeevananu Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Ensure this is included -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Post+No+Bills+Colombo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/images/flag_icon.png" type="image/png">
+    </head>
+
+  
+<style>
+  body {
+    padding-top: 80px; /* Adjust padding to prevent content from being hidden under the navbar */
+}
+
+
+.navbar {
+    padding: 20px;
+    background-color: #fdf8ef; /* Background color */
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+/* Adjust dropdown menu styling */
+.dropdown-menu {
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid #276b49;
+}
+
+/* Style the dropdown items */
+.dropdown-item {
+    color: #111010;
+}
+
+.dropdown-item:hover {
+    background-color: #276b49;
+    color: #fff;
+}
+
+/* Custom button styles */
+.custom-button {
+    background-color: #276b49;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.search-box input[type="text"].show {
+    width: 200px;
+    opacity: 1;
+}
+
+.custom-button {
+    background-color: #276b49;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+}
+/* Mega Menu */
+.megamenu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-item:hover .megamenu {
+    display: block;
+}
+
+.megamenu-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+
+    .megamenu-columns {
+        flex-direction: column;
+    }
+    .search{
+        display: none;
+    }
+}
+</style>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-icons ms-auto order-lg-2">
+            <form method="GET" action="{% url 'search_results' %}" class="search-box d-flex align-items-center">
+                <i class="bi bi-search" id="search-icon" style="cursor: pointer;" onclick="document.getElementById('search-form').submit();"></i>
+                <input type="text" id="search-input" name="q" placeholder="Search..." class="form-control">
+            </form>
+            
+                  <a class="nav-link" href="{% url 'signup_page' %}"><i class="bi bi-person" id="user-icon" style="cursor: pointer; margin-left: 10px;"></i></a>
+                  <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-bag"></i></a>
+          
+        </div>
+        <a class="navbar-brand order-lg-1" href="#">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Logo" width="90"> <!-- Replace with your logo -->
+        </a>
+    </div>
+</nav>
+
+<!-- Second Navbar with Links -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLinks">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                        {% for category in categories %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'category_products' category.id %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    
+                
+                <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+               
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div class="container" style="margin-top: 90px;">
+        <div class="row">
+            <!-- Cart Items Section -->
+            <div class="col-lg-8">
+                <h2 class="mb-4 cart-heading">My Cart</h2>
+                {% for item in cart_items %}
+                <div class="card p-3 mb-3 mt-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="{{ item.product.images.first.image.url }}" class="img-fluid" alt="{{ item.product.heading }}">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="product-title">{{ item.product.heading }}</h5>
+                            <p class="mb-1"><strong>Each:</strong> ₹{{ item.product.discount_price }}</p>
+                            <p>{{ item.product.get_stock_status }}</p>
+                            <p>Delivery Charge: ₹{{ item.product.delivery_charge }}</p>
+                            <button class="btn remove-item" data-id="{{ item.id }}">
+                                <i class="fas fa-trash-alt" style="color: #276b49;"></i>
+                            </button>
+                            
+
+                        </div>
+                        <div class="col-md-3 text-right">
+                         
+                            <div class="input-group quantity-input mb-3">
+                                <input type="number" class="form-control update-quantity" data-id="{{ item.id }}" value="{{ item.quantity }}" min="1">
+                            </div>
+                            <p class="total-price"><strong>Total:</strong> ₹<span id="total-{{ item.id }}">{{ item.total_price }}</span></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    
+            <!-- Summary Section -->
+            <div class="col-lg-4">
+                <div class="card p-3 mb-3 mt-5">
+                    <p>Shipping cost: <span class="float-right">₹{{ total_delivery_charge }}</span></p>
+                    <p>Total: <span class="float-right">₹<span id="subtotal">{{ total_amount }}</span></span></p>
+                    <hr>
+                    <p><strong>Estimated Total: <span class="float-right">₹<span id="grand-total">{{ total_amount }}</span></strong></p>
+                    <a href="{% url 'checkout' %}" class="btn btn-warning btn-block mt-3">Proceed to Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+       
+
+<footer class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center logo">
+                <img src="{% static 'images/jeeva_logo.png' %}" alt="Company Logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>About Us</h5>
+                <p>We are a leading company in providing the best quality products to our customers.</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <p><a href="#">Home</a></p>
+                <p><a href="#">Shop</a></p>
+                <p><a href="#">Blog</a></p>
+                <p><a href="#">Contact</a></p>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <p>123 Street Name, City, Country</p>
+                <p>Email: info@company.com</p>
+                <p>Phone: +123 456 7890</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        document.getElementById('search-icon').addEventListener('click', function() {
+            var searchInput = document.getElementById('search-input');
+            searchInput.classList.toggle('show');
+            searchInput.focus();
+        });
+
+        $(document).ready(function() {
+    // Handle the remove button click
+    $('.remove-item').click(function() {
+        var itemId = $(this).data('id'); // Get the item ID from the data-id attribute
+
+        // Send AJAX request to remove the item from the cart
+        $.ajax({
+            url: "{% url 'remove_cart_item' %}",  // Update this URL to match your route
+            method: "POST",
+            data: {
+                'item_id': itemId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Remove the item from the DOM
+                    $('#cart-item-' + itemId).remove();
+                    
+                    // Update the total amounts
+                    $('#subtotal').text(response.total_amount);
+                    $('#grand-total').text(response.total_amount);
+                    $('#shipping-cost').text(response.total_delivery_charge);
+                    
+                    // If no items are left in the cart, show an empty message
+                    if (response.item_count == 0) {
+                        $('.cart-container').html('<p>Your cart is empty.</p>');
+                    }
+                }
+            }
+        });
+    });
+});
+$(document).ready(function() {
+    $('.update-quantity').on('change', function() {
+        var item_id = $(this).data('id');
+        var new_quantity = $(this).val();
+        var item_total_price_element = $('#total-' + item_id);
+
+        $.ajax({
+            url: '{% url "update_cart_quantity" %}',  // Add this URL in your urls.py
+            method: 'POST',
+            data: {
+                'item_id': item_id,
+                'quantity': new_quantity,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Update the total price for this item
+                item_total_price_element.text(response.item_total_price);
+                // Update the subtotal and grand total
+                $('#subtotal').text(response.total_amount);
+                $('#grand-total').text(response.total_amount);
+            }
+        });
+    });
+});
+$(document).ready(function() {
+    $('.remove-item').on('click', function() {
+        var item_id = $(this).data('id');
+        var item_row = $(this).closest('.card');
+
+        $.ajax({
+            url: '{% url "remove_cart_item" %}',  // URL to handle remove request
+            method: 'POST',
+            data: {
+                'item_id': item_id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    item_row.remove(); // Remove the item row from the DOM
+                    $('#subtotal').text(response.total_amount); // Update subtotal
+                    $('#grand-total').text(response.total_amount); // Update grand total
+                    $('.cart-heading').text(response.item_count + ' Item(s)'); // Update item count
+                    // Update the shipping cost if necessary
+                    if (response.total_delivery_charge !== undefined) {
+                        // Handle updating the shipping cost element here
+                    }
+                }
+            }
+        });
+    });
+});
+
+
+    </script>
+   

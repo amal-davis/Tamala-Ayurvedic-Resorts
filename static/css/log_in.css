@@ -1,0 +1,259 @@
+body {
+    padding-top: 80px; /* Adjust padding to prevent content from being hidden under the navbar */
+}
+
+.navbar {
+    padding: 20px;
+    background-color: #fdf8ef; /* Background color */
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+/* Adjust dropdown menu styling */
+.dropdown-menu {
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid #276b49;
+}
+
+/* Style the dropdown items */
+.dropdown-item {
+    color: #111010;
+}
+
+.dropdown-item:hover {
+    background-color: #276b49;
+    color: #fff;
+}
+
+/* Custom button styles */
+.custom-button {
+    background-color: #276b49;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.search-box input[type="text"].show {
+    width: 200px;
+    opacity: 1;
+}
+
+.custom-button {
+    background-color: #276b49;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+}
+/* Mega Menu */
+.megamenu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-item:hover .megamenu {
+    display: block;
+}
+
+.megamenu-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+
+    .megamenu-columns {
+        flex-direction: column;
+    }
+    .search{
+        display: none;
+    }
+}
+
+
+.contact-form {
+    max-width: 600px; /* Decrease the width of the entire form */
+    margin: auto; /* Center the form horizontally */
+}
+
+.contact-form .form-control {
+    width: 100%; /* Make input fields take full width of the parent container */
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid #ced4da;
+}
+
+.contact-form .form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form .form-control:focus {
+    border-color: #276b49;
+    box-shadow: none;
+}
+
+.contact-form label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.75rem;
+    font-size: 0.875rem;
+    color: #aaa;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.contact-form .form-control:focus + label,
+.contact-form .form-control:not(:placeholder-shown) + label {
+    top: -0.75rem;
+    left: 0.75rem;
+    font-size: 0.75rem;
+    color: #276b49;
+    background: #fff;
+    padding: 0 0.25rem;
+}
+
+.contact-form textarea.form-control {
+    height: auto;
+}
+
+.btn-primary {
+    background-color: #276b49;
+    border-color: #276b49;
+    color: #fff;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        text-align: center;
+    }
+    .contact-info,
+    .contact-form {
+        margin-bottom: 30px;
+    }
+    .icon-item {
+        flex-direction: column;
+        align-items: center;
+    }
+    .icon-item span {
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+
+
+footer {
+    background-color: #070707;
+    color: #fff;
+    padding: 50px 0;
+}
+
+footer h5 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+footer p, footer a {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+footer .social-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+}
+
+footer .social-icons a:hover {
+    background-color: #276b49; /* Change to the desired hover color */
+}
+
+footer .logo img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    footer {
+        text-align: center;
+    }
+
+    footer .col-md-3 {
+        margin-bottom: 30px;
+    }
+
+    footer .logo img {
+        margin: 0 auto;
+        display: block;
+    }
+}

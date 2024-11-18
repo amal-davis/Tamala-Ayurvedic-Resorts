@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamal Ayuvedic Heritage Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Ensure this is included -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="icon" href="/static/images/flag_icon.png" type="image/png">
+    </head>
+  
+<style>
+    .slider {
+            height: 400px;
+            background: url('your-slider-image.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            z-index: 2; /* Ensure slider is below the dropdown */
+        }
+
+        .product-card .old-price {
+    text-decoration: line-through;
+    color: #ccc;
+    margin-right: 5px;
+}
+
+.product-card .price {
+    font-size: 1.2rem;
+    color: #276b49;
+    display: block; /* Ensure price takes up the full width */
+}
+      
+
+        /* Dropdown Styling */
+        .dropdown-menu {
+            z-index: 1001; /* Ensure dropdown is above everything */
+            position: absolute; /* Ensure it doesn't get cut off */
+            margin-top: 0; /* Prevent any margin from pushing it below the slider */
+        }
+
+   .swiper-container h3:after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background-color: #276b49; /* Green color */
+        margin: 10px auto 0;
+    }
+    .swiper-container h3 {
+        color: #0c0c0c;
+    }
+    a{
+        text-decoration: none;
+    }
+    .navbar-toggler {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+</style>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Logo -->
+        <a class="navbar-brand order-lg-1" href="#">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Logo" width="90"> <!-- Replace with your logo -->
+        </a>
+
+        <!-- Search form -->
+        <div class="navbar-icons ms-auto order-lg-2">
+            <form method="GET" action="{% url 'search_results' %}" class="search-box d-flex align-items-center">
+                <i class="bi bi-search search" id="search-icon" style="cursor: pointer;"></i>
+                <input type="text" id="search-input" name="q" placeholder="Search..." class="form-control">
+            </form>
+            
+            <a class="nav-link" href="{% url 'orders' %}"><i class="bi bi-receipt" id="user-icon" style="cursor: pointer; margin-left: 10px;"></i></a>
+            <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-bag"></i></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Second Navbar with Links -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLinks">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                {% for category in categories %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'category_products' category.id %}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+</div>
+<div class="owl-carousel owl-theme desktop-carousel" id="home">
+    <div class="item">
+      <img src="{% static 'images/image.webp' %}" alt="Slide 1">
+      <div class="overlay">
+        <h1>Honeymoon Cottage with Private Pool</h1>
+        <p>Experience the epitome of luxury and romance with a honeymoon in a private pool room</p>
+        <a href="#" class="btn call-btn">CALL NOW</a>
+      </div>
+    </div>
+    <div class="item">
+      <img src="{% static 'images/image.webp' %}" alt="Slide 2">
+      <div class="overlay">
+        <h1>Slide 2 Title</h1>
+        <p>Slide 2 Description</p>
+        <a href="#" class="btn call-btn">CALL NOW</a>
+      </div>
+    </div>
+    <div class="item">
+      <img src="{% static 'images/image.webp' %}" alt="Slide 3">
+      <div class="overlay">
+        <h1>Slide 3 Title</h1>
+        <p>Slide 3 Description</p>
+        <a href="#" class="btn call-btn">CALL NOW</a>
+      </div>
+    </div>
+  </div>
+  <div class="custom-dots desktop-dots">
+    <span class="dot" data-slide="0"></span>
+    <span class="dot" data-slide="1"></span>
+    <span class="dot" data-slide="2"></span>
+  </div>
+    
+<div class="container heading-section mt-5">
+    <h3 style="text-align: center;">The Ultimate Skin & Hair Combos</h3>
+    <div class=" row">
+        {% for product in page_obj %}
+        <div class="col-lg-3 col-6 col-md-6 col-sm-12 mb-4">
+            <div class="product-card">
+                <a href="{% url 'product_detail' product.slug %}">
+                    {% if product.images.first %}
+                        <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% else %}
+                        <p>No Image</p>
+                    {% endif %}
+                </a>
+                <h5>{{ product.name }}</h5>
+                <p class="card-text">
+                    {% if product.discount_price %}
+                        <span class="old-price">₹{{ product.price }}</span>
+                        <span class="price">₹{{ product.discount_price }}</span>
+                    {% else %}
+                        <span class="price">₹{{ product.price }}</span>
+                    {% endif %}
+                </p>
+                {% if product.stock > 0 %}
+                <div class="cart-icon">
+                    
+                </div>
+            {% endif %}
+              
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-add-to-cart">Add to Cart</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <!-- Swiper Navigation -->
+    
+</div>
+
+<section class="why-choose-us">
+    <h2>Why Choose Us</h2>
+    <div class="feature-container">
+        <div class="feature-box">
+            <img src="{% static 'images/80-years.webp' %}" alt="80+ years Heritage" class="img-fluid">
+            <h3>80+ years Heritage</h3>
+            <p>Years of Legacy</p>
+        </div>
+        <div class="feature-box">
+            <img src="{% static 'images/100.png' %}" alt="100% Natural & Herbal" class="img-fluid">
+            <h3>100% Natural & Herbal</h3>
+            <p>Herbal Products</p>
+        </div>
+        <div class="feature-box">
+            <img src="{% static 'images/classical.png' %}" alt="Perfect blend of Classical + Modern" class="img-fluid">
+            <h3>Perfect blend of Classical + Modern</h3>
+            <p>Classical + Modern</p>
+        </div>
+        <div class="feature-box">
+            <img src="{% static 'images/authentic.png' %}" alt="Leaders of authentic Ayurveda" class="img-fluid">
+            <h3>Leaders of authentic Ayurveda</h3>
+            <p>Authentic Ayurveda</p>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<div class="slider-container container py-5">
+    <h1 class="slider-heading mt-5">Explore Tamala</h1>
+    <div class="owl-carousel owl-theme mt-3">
+        {% for category in categories %}
+        <div class="item">
+            <div class="image-container">
+                {% if category.image %}
+                <img src="{{ category.image.url }}" class="img-fluid" alt="{{ category.name }}">
+            {% else %}
+                <div class="no-image">No Image</div>
+            {% endif %}
+                            <div class="overlay">
+                    <a href="{% url 'category_products' category.id %}">
+                        <button class="overlay-buttons">DISCOVER NOW</button>
+                    </a>
+                </div>
+            </div>
+            <p>{{ category.name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="custom-nav">
+        <button class="custom-prev"><i class="fas fa-chevron-left"></i></button>
+        <button class="custom-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>
+<section class="meet-our-founder">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="{% static 'images/founder.jpg' %}" alt="Meet Our Founder">
+            </div>
+            <div class="col-lg-6 content">
+                <h2>MEET OUR FOUNDER</h2>
+                <p>Ohria stands for natural ayurvedic products made from formulations passed on by ancestors of my Ayurved Acharya (Teacher) in Rishikesh. His forefathers served the royalty in ancient India.</p>
+                <a href="#" class="btn btn-custom">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="testimonials">
+    <div class="container">
+        <h2 class="text-center">Testimonials</h2>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 pt-5">
+                            <div class="testimonial-item ">
+                                <img src="{% static 'images/client1.webp' %}" alt="Client 1" class="img-fluid"> 
+                                <p>"Ohria Ayurveda has truly transformed my skincare routine. The natural products are gentle yet effective."</p>
+                                <h5>Jane Doe</h5>
+                                <small>Client</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 pt-5">
+                            <div class="testimonial-item ">
+                                <img src="{% static 'images/client1.webp' %}" alt="Client 2" class="img-fluid">
+                                <p>"The products are authentic and deliver real results. I am very impressed with the quality."</p>
+                                <h5>John Smith</h5>
+                                <small>Client</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 pt-5">
+                            <div class="testimonial-item ">
+                                <img src="{% static 'images/testimonial3.jpg' %}" alt="Client 3" class="img-fluid">
+                                <p>"I love that Ohria Ayurveda products are made from natural ingredients. My skin feels amazing!"</p>
+                                <h5>Sarah Brown</h5>
+                                <small>Client</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 pt-5">
+                            <div class="testimonial-item ">
+                                <img src="{% static 'images/testimonial4.jpg' %}" alt="Client 4">
+                                <p>"Using these products has been a game-changer for me. Highly recommend to anyone looking for quality skincare."</p>
+                                <h5>Mike Johnson</h5>
+                                <small>Client</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev-test" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon-test" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next-test" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon-test" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+<br><br>
+
+
+
+<section class="service-icons" style="background-color: rgb(190, 231, 190);">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/refresh.png' %}" alt="Replacement" class="img-fluid">
+                <p>100% Replacement guaranteed returns</p>
+            </div>
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/secure.png' %}" alt="Secure Payment" class="img-fluid">
+                <p>Secure Payment</p>
+            </div>
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/fast.png' %}" alt="Shipping" class="img-fluid">
+                <p>Flat shipping rates across India</p>
+            </div>
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/cash.png' %}" alt="Cash on Delivery" class="img-fluid"><br>
+                <p>Cash on Delivery is available</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 text-center logo">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Company Logo">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h5>About Us</h5>
+            <p>We are a leading company in providing the best quality products to our customers.</p>
+        </div>
+        <div class="col-md-3">
+            <h5>Quick Links</h5>
+            <p><a href="#">Home</a></p>
+            <p><a href="#">Shop</a></p>
+            <p><a href="#">Blog</a></p>
+            <p><a href="#">Contact</a></p>
+        </div>
+        <div class="col-md-3">
+            <h5>Contact Us</h5>
+            <p>123 Street Name, City, Country</p>
+            <p>Email: info@company.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="col-md-3">
+            <h5>Follow Us</h5>
+            <div class="social-icons">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-twitter"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+</footer>
+
+
+<!-- Include Swiper JS -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script>
+          document.getElementById('search-icon').addEventListener('click', function() {
+            var searchInput = document.getElementById('search-input');
+            searchInput.classList.toggle('show');
+            searchInput.focus();
+        });
+
+
+
+        
+      // Initialize Desktop Carousel
+      var desktopOwl = $(".desktop-carousel").owlCarousel({
+        items: 1,
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        nav: false,
+        dots: false,
+        animateOut: 'fadeOut', // Adding fadeOut animation
+        animateIn: 'fadeIn' // Adding fadeIn animation
+      });
+
+        $(document).ready(function(){
+        var owl = $(".owl-carousel");
+        owl.owlCarousel({
+            loop: false,
+            margin: 10,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                600: {
+                    items: 1,
+                },
+                1000: {
+                    items: 4,
+                }
+            }
+        });
+
+        // Custom Navigation Events
+        $(".custom-next").click(function(){
+            owl.trigger('next.owl.carousel');
+        });
+        $(".custom-prev").click(function(){
+            owl.trigger('prev.owl.carousel');
+        });
+    });
+
+
+
+   
+    </script>
+   
+    
+    </body>
+    </html>

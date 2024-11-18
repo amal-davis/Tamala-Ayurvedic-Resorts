@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamala products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Ensure this is included -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  
+<style>
+  body {
+    padding-top: 80px; /* Adjust padding to prevent content from being hidden under the navbar */
+    overflow-x: hidden;
+}
+.navbar {
+    padding: 20px;
+    background-color: #fdf8ef; /* Background color */
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+/* Adjust dropdown menu styling */
+.dropdown-menu {
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid #276b49;
+}
+
+/* Style the dropdown items */
+.dropdown-item {
+    color: #111010;
+}
+
+.dropdown-item:hover {
+    background-color: #276b49;
+    color: #fff;
+}
+
+/* Custom button styles */
+.custom-button {
+    background-color: #276b49;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.search-box input[type="text"].show {
+    width: 200px;
+    opacity: 1;
+}
+
+.custom-button {
+    background-color: #276b49;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+}
+/* Mega Menu */
+.megamenu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-item:hover .megamenu {
+    display: block;
+}
+
+.megamenu-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+
+    .megamenu-columns {
+        flex-direction: column;
+    }
+    .search{
+        display: none;
+    }
+}
+
+.category-dropdown {
+            margin-bottom: 20px;
+        }
+
+        .category-dropdown .btn {
+            background-color: #276b49; /* Custom background color */
+            color: white; /* Text color */
+            border: none; /* Remove default border */
+            padding: 10px 20px; /* Adjust padding */
+            border-radius: 30px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+            text-transform: uppercase; /* Uppercase text */
+            box-shadow: 0 4px 6px rgba(40, 80, 68, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+        }
+
+        .category-dropdown .btn:hover {
+            background-color: #1e513b; /* Darker shade on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+        }
+
+        .category-dropdown .dropdown-menu {
+            border-radius: 10px; /* Rounded corners for the dropdown menu */
+            border: 1px solid #ddd; /* Light border */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for the dropdown menu */
+        }
+
+        .category-dropdown .dropdown-item {
+            padding: 10px 20px; /* Adjust padding for dropdown items */
+            font-size: 14px; /* Font size for dropdown items */
+            color: #333; /* Text color for dropdown items */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .category-dropdown .dropdown-item:hover {
+            background-color: #f5f5f5; /* Light background on hover */
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #276b49;
+            text-align: center;
+        }
+
+
+        .category-dropdown .btn {
+    background-color: #276b49; /* Change button background color */
+    color: #fff; /* Change text color */
+    border: 2px solid #276b49; /* Add border color */
+    border-radius: 0; /* Remove border radius */
+}
+
+.category-dropdown .btn:hover {
+    background-color: #1e513b; /* Change button hover background color */
+    border-color: #1e513b; /* Change border color on hover */
+}
+
+.dropdown-menu {
+    min-width: 200px; /* Adjust the width of the dropdown */
+    border: 2px solid #276b49; /* Add border to dropdown */
+}
+
+.dropdown-item {
+    padding: 10px 15px; /* Add padding to dropdown items */
+    color: #333; /* Change text color */
+}
+
+.dropdown-item:hover {
+    background-color: #276b49; /* Change background color on hover */
+    color: #fff; /* Change text color on hover */
+}
+
+
+
+
+
+
+
+
+
+.product-card {
+    background-color: #fff;
+    text-align: center;
+    padding: 15px;
+    transition: box-shadow 0.3s ease;
+    border-radius: 5px;
+    height: 350px; /* Fixed height for the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card img {
+    max-width: 100%;
+    
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.product-card h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-card .description {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+    flex-grow: 1; /* Pushes the price and button to the bottom */
+}
+
+.product-card .price {
+    font-size: 14px;
+    color: #276b49;
+    margin-bottom: 10px;
+}
+
+.product-card .btn {
+    background-color: #276b49;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+        .best-seller-section {
+            padding: 40px 0;
+            background-color: #f9f9f9;
+            position: relative; /* Ensure that arrows can be positioned */
+            overflow: hidden;
+        }
+
+        .best-seller-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #276b49;
+        }
+
+        .swiper-container {
+            padding: 0 20px;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent overflow */
+        }
+
+        .products-card {
+            background-color: #fff;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            max-width: 250px; /* Maximum width of each product card */
+            box-sizing: border-box;
+        }
+
+        .products-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .products-card h5 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-card .old-price {
+    text-decoration: line-through;
+    color: #ccc;
+    margin-right: 5px;
+}
+
+.product-card .price {
+    font-size: 1.2rem;
+    color: #276b49;
+    display: block; /* Ensure price takes up the full width */
+}
+        .products-card .btn {
+            background-color: #276b49;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .products-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom styles for navigation buttons */
+        .swiper-button-next, .swiper-button-prev {
+            color: #fff;
+            background-color: #276b49;
+            border-radius: 50%;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            top: 50%; /* Center the buttons vertically */
+            transform: translateY(-50%);
+            
+        }
+
+        .swiper-button-next {
+            right: 10px;
+        }
+
+        .swiper-button-prev {
+            left: 10px;
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background-color: #1e513b; /* Darken on hover */
+        }
+
+        /* Ensuring responsiveness */
+        @media (max-width: 1200px) {
+            .products-card {
+                max-width: 100px; /* Adjust product card width for medium screens */
+            }
+            .swiper-button-next, .swiper-button-prev {
+                margin-top: 195px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .swiper-slide {
+                width: 50%; /* Show 2 products per slide on medium screens */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .swiper-slide {
+                width: 100%; /* Show 1 product per slide on small screens */
+            }
+        }
+        .service-icons {
+       
+        border-top: 1px solid #276b49;
+        margin-top: 30px;
+       
+       
+    }
+
+    .service-icons .icon-box {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .service-icons .icon-box img {
+        max-width: 50px;
+        margin-bottom: 15px;
+    }
+
+    .service-icons .icon-box p {
+        font-size: 14px;
+        color: #141414;
+    }
+
+    @media (max-width: 768px) {
+        
+
+        .service-icons .icon-box {
+            margin-bottom: 20px;
+        }
+    }
+
+    footer {
+        background-color: #070707;
+        color: #fff;
+    }
+
+    footer h5 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    footer p, footer a {
+        font-size: 14px;
+        color: #ccc;
+        margin-bottom: 10px;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+        color: #fff;
+    }
+
+    footer .social-icons a {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        line-height: 35px;
+        font-size: 16px;
+    }
+
+    footer .social-icons a:hover {
+        background-color: #276b49; /* Change to the desired hover color */
+    }
+
+    footer .logo img {
+        max-width: 150px;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        footer {
+            text-align: center;
+        }
+
+        footer .col-md-3 {
+            margin-bottom: 30px;
+        }
+
+        footer .logo img {
+            margin: 0 auto;
+            display: block;
+        }
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Logo -->
+        <a class="navbar-brand order-lg-1" href="#">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Logo" width="90"> <!-- Replace with your logo -->
+        </a>
+
+        <!-- Search form -->
+        <div class="navbar-icons ms-auto order-lg-2">
+            <form method="GET" action="{% url 'search_results' %}" class="search-box d-flex align-items-center">
+                <i class="bi bi-search search" id="search-icon" style="cursor: pointer;"></i>
+                <input type="text" id="search-input" name="q" placeholder="Search..." class="form-control">
+            </form>
+            
+            <a class="nav-link" href="{% url 'orders' %}"><i class="bi bi-receipt" id="user-icon" style="cursor: pointer; margin-left: 10px;"></i></a>
+            <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-bag"></i></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Second Navbar with Links -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLinks">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                {% for category in categories %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'category_products' category.id %}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="margin-top: 90px;">
+    <div class="col-md-12 text-end">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="color: #070707;">
+                Sort Products
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="?sort=low-to-high">Price: Low to High</a></li>
+                <li><a class="dropdown-item" href="?sort=high-to-low">Price: High to Low</a></li>
+                <li><a class="dropdown-item" href="?sort=a-to-z">Name: A to Z</a></li>
+                <li><a class="dropdown-item" href="?sort=z-to-a">Name: Z to A</a></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+
+<div class="container" style="margin-top: 50px;">
+    <div class="row">
+        {% for product in page_obj %}
+            <div class="col-lg-3 col-6 col-md-6 col-sm-12 mb-4">
+                <div class="product-card">
+                    <a href="{% url 'product_detail' product.slug %}">
+                        {% if product.images.first %}
+                            <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% else %}
+                            <p>No Image</p>
+                        {% endif %}
+                    </a>
+                    <h5>{{ product.name }}</h5>
+                    <p class="card-text">
+                        {% if product.discount_price %}
+                            <span class="old-price">₹{{ product.price }}</span>
+                            <span class="price">₹{{ product.discount_price }}</span>
+                        {% else %}
+                            <span class="price">₹{{ product.price }}</span>
+                        {% endif %}
+                    </p>
+                    {% if product.stock > 0 %}
+                    <div class="cart-icon">
+                        
+                    </div>
+                {% endif %}
+                  
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row" style="margin-top: 120px;">
+    <div class="col-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+</div>
+      
+            <!-- Category 2 -->
+           
+
+<section class="service-icons py-5" style="background-color: rgb(190, 231, 190);">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/refresh.png' %}" alt="Replacement" class="img-fluid">
+                <p>100% Replacement guaranteed returns</p>
+            </div>
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/secure.png' %}" alt="Secure Payment" class="img-fluid">
+                <p>Secure Payment</p>
+            </div>
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/fast.png' %}" alt="Shipping" class="img-fluid">
+                <p>Flat shipping rates across India</p>
+            </div>
+            <div class="col-lg-3 col-md-6 icon-box">
+                <img src="{% static 'images/cash.png' %}" alt="Cash on Delivery" class="img-fluid"><br>
+                <p>Cash on Delivery is available</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="py-5">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 text-center logo">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Company Logo">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h5>About Us</h5>
+            <p>We are a leading company in providing the best quality products to our customers.</p>
+        </div>
+        <div class="col-md-3">
+            <h5>Quick Links</h5>
+            <p><a href="#">Home</a></p>
+            <p><a href="#">Shop</a></p>
+            <p><a href="#">Blog</a></p>
+            <p><a href="#">Contact</a></p>
+        </div>
+        <div class="col-md-3">
+            <h5>Contact Us</h5>
+            <p>123 Street Name, City, Country</p>
+            <p>Email: info@company.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="col-md-3">
+            <h5>Follow Us</h5>
+            <div class="social-icons">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-twitter"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+</footer>
+
+
+<!-- Include Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- Include Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    document.getElementById('search-icon').addEventListener('click', function() {
+            var searchInput = document.getElementById('search-input');
+            searchInput.classList.toggle('show');
+            searchInput.focus();
+        });
+    var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 4, // Show 4 slides at a time on large screens
+        spaceBetween: 10, // Space between slides
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            1200: {
+                slidesPerView: 4, // Four products per row on large screens
+            },
+            992: {
+                slidesPerView: 2, // Two products per row on smaller screens
+            },
+            576: {
+                slidesPerView: 1, // One product per row on small screens
+            }
+        }
+    });
+</script>

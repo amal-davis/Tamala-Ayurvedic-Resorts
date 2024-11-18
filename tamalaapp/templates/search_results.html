@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Ensure this is included -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="icon" href="/static/images/flag_icon.png" type="image/png">
+    </head>
+  
+<style>
+  body {
+    padding-top: 80px; /* Adjust padding to prevent content from being hidden under the navbar */
+   
+}
+
+.navbar {
+    padding: 20px;
+    background-color: #fdf8ef; /* Background color */
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.search-box input[type="text"].show {
+    width: 200px;
+    opacity: 1;
+}
+
+.custom-button {
+    background-color: #276b49;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+}
+/* Mega Menu */
+.megamenu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-item:hover .megamenu {
+    display: block;
+}
+
+.megamenu-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+
+    .megamenu-columns {
+        flex-direction: column;
+    }
+}
+
+footer {
+    background-color: #070707;
+    color: #fff;
+    padding: 50px 0;
+}
+
+footer h5 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+footer p, footer a {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+footer .social-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+}
+
+footer .social-icons a:hover {
+    background-color: #276b49; /* Change to the desired hover color */
+}
+
+footer .logo img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    footer {
+        text-align: center;
+    }
+
+    footer .col-md-3 {
+        margin-bottom: 30px;
+    }
+
+    footer .logo img {
+        margin: 0 auto;
+        display: block;
+    }
+}
+</style>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Logo -->
+        <a class="navbar-brand order-lg-1" href="#">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Logo" width="90"> <!-- Replace with your logo -->
+        </a>
+
+        <!-- Search form -->
+        <div class="navbar-icons ms-auto order-lg-2">
+            <form method="GET" action="{% url 'search_results' %}" class="search-box d-flex align-items-center">
+                <i class="bi bi-search search" id="search-icon" style="cursor: pointer;"></i>
+                <input type="text" id="search-input" name="q" placeholder="Search..." class="form-control">
+            </form>
+            
+            <a class="nav-link" href="{% url 'orders' %}"><i class="bi bi-receipt" id="user-icon" style="cursor: pointer; margin-left: 10px;"></i></a>
+            <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-bag"></i></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Second Navbar with Links -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLinks">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                {% for category in categories %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'category_products' category.id %}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" style="margin-top: 140px;">
+    <h2 class="hero-heading">Search Results for "{{ query }}"</h2>
+    {% if products %}
+        <div class="row mt-5">
+            {% for product in products %}
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+                <div class="card product-card" data-id="{{ product.id }}">
+                    <div class="image-container" style="position: relative;">
+                        <a href="{% url 'product_detail' product.slug %}">
+                            {% if product.images.first %}
+                                <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.heading }}">
+                            {% else %}
+                                <p>No Image</p>
+                            {% endif %}
+                        </a>
+                      
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'product_detail' product.slug %}" style="color: #ffffff;text-decoration: none;">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                        </a>
+                        <p class="card-text">
+                            {% if product.discount_price %}
+                                <span class="old-price">₹{{ product.price }}</span>
+                                <span class="price">₹{{ product.discount_price }}</span>
+                            {% else %}
+                                <span class="price">₹{{ product.price }}</span>
+                            {% endif %}
+                        </p>
+                        <div class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No products found matching your query.</p>
+    {% endif %}
+</div>
+
+
+
+<footer>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center logo">
+                <img src="{% static 'images/jeeva_logo.png' %}" alt="Company Logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>About Us</h5>
+                <p>We are a leading company in providing the best quality products to our customers.</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <p><a href="#">Home</a></p>
+                <p><a href="#">Shop</a></p>
+                <p><a href="#">Blog</a></p>
+                <p><a href="#">Contact</a></p>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <p>123 Street Name, City, Country</p>
+                <p>Email: info@company.com</p>
+                <p>Phone: +123 456 7890</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    
+    
+    <!-- Include Bootstrap JS -->
+    <!-- Include Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    document.getElementById('search-icon').addEventListener('click', function() {
+            var searchInput = document.getElementById('search-input');
+            searchInput.classList.toggle('show');
+            searchInput.focus();
+        });
+            $(document).ready(function() {
+$('.search-icon').click(function() {
+   $('.navbar-nav').addClass('d-none');  // Hide the navbar links
+   $('.search-bar').removeClass('d-none');  // Show the search bar
+});
+
+$('.close-search').click(function() {
+   $('.search-bar').addClass('d-none');  // Hide the search bar
+   $('.navbar-nav').removeClass('d-none');  // Show the navbar links
+});
+});
+$(document).ready(function() {
+$('.cart-icon').on('click', function(e) {
+    e.preventDefault(); // Prevent the default anchor behavior
+
+    var product_id = $(this).closest('.card').data('id');  // Assuming you set a data-id attribute on the card
+    var url = `/add_to_cart/${product_id}/`;  // Construct the URL with the product_id
+
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+            'quantity': 1,  // Default quantity is 1
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(response) {
+            // Since the view function might redirect, detect the URL change and follow it
+            window.location.href = "/cart/"; // Redirect to cart page after adding the product
+        },
+        error: function(xhr, status, error) {
+            // Handle the error case here
+            alert('Failed to add product to cart.');
+        }
+    });
+});
+});
+
+</script>

@@ -1,0 +1,269 @@
+body {
+    padding-top: 80px; /* Adjust padding to prevent content from being hidden under the navbar */
+}
+
+.navbar {
+    padding: 20px;
+    background-color: #fdf8ef; /* Background color */
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+/* Adjust dropdown menu styling */
+.dropdown-menu {
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid #276b49;
+}
+
+/* Style the dropdown items */
+.dropdown-item {
+    color: #111010;
+}
+
+.dropdown-item:hover {
+    background-color: #276b49;
+    color: #fff;
+}
+
+/* Custom button styles */
+.custom-button {
+    background-color: #276b49;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.search-box input[type="text"].show {
+    width: 200px;
+    opacity: 1;
+}
+
+.custom-button {
+    background-color: #276b49;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+}
+/* Mega Menu */
+.megamenu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-item:hover .megamenu {
+    display: block;
+}
+
+.megamenu-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+
+    .megamenu-columns {
+        flex-direction: column;
+    }
+    .search{
+        display: none;
+    }
+}
+
+
+
+
+.service-icons {
+    padding: 30px 0;
+    border-top: 1px solid #276b49;
+    margin-top: 30px;
+   
+   
+}
+
+.service-icons .icon-box {
+    text-align: center;
+    padding: 20px;
+}
+
+.service-icons .icon-box img {
+    max-width: 50px;
+    margin-bottom: 15px;
+}
+
+.service-icons .icon-box p {
+    font-size: 14px;
+    color: #141414;
+}
+
+@media (max-width: 768px) {
+    
+
+    .service-icons .icon-box {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+footer {
+    background-color: #070707;
+    color: #fff;
+    padding: 50px 0;
+}
+
+footer h5 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+footer p, footer a {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+footer .social-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+}
+
+footer .social-icons a:hover {
+    background-color: #276b49; /* Change to the desired hover color */
+}
+
+footer .logo img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    footer {
+        text-align: center;
+    }
+
+    footer .col-md-3 {
+        margin-bottom: 30px;
+    }
+
+    footer .logo img {
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+
+
+
+.about-header {
+    background-image: url('path_to_your_background_image.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+}
+
+.about-header h1 {
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.about-section {
+    padding: 60px 0;
+}
+
+.about-section h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #276b49;
+}
+
+.about-section p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.about-section hr {
+    border-top: 1px solid #276b49;
+    width: 90%;
+    margin: 30px 0;
+}
+
+.about-content-left, .about-content-right {
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .about-content-left {
+        padding-right: 30px;
+        border-right: 1px solid #276b49;
+    }
+
+    .about-content-right {
+        padding-left: 30px;
+    }
+}

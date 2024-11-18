@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamala products Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
+    <link rel="icon" href="/static/images/flag_icon.png" type="image/png">
+    </head><!-- Ensure this is included -->
+  
+<style>
+  body {
+    padding-top: 80px; /* Adjust padding to prevent content from being hidden under the navbar */
+}
+.navbar {
+    padding: 20px;
+    background-color: #fdf8ef; /* Background color */
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+/* Adjust dropdown menu styling */
+.dropdown-menu {
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid #276b49;
+}
+
+/* Style the dropdown items */
+.dropdown-item {
+    color: #111010;
+}
+
+.dropdown-item:hover {
+    background-color: #276b49;
+    color: #fff;
+}
+
+/* Custom button styles */
+.custom-button {
+    background-color: #276b49;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.search-box input[type="text"].show {
+    width: 200px;
+    opacity: 1;
+}
+
+.custom-button {
+    background-color: #276b49;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+}
+/* Mega Menu */
+.megamenu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-item:hover .megamenu {
+    display: block;
+}
+
+.megamenu-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-brand {
+        left: 0;
+        transform: none;
+    }
+
+    .megamenu-columns {
+        flex-direction: column;
+    }
+    .search{
+        display: none;
+    }
+}
+.btn-cart {
+    background-color: #276b49;
+    color: #fdf8ef;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-right: 150px;
+}
+
+.btn-cart:hover {
+    background-color: #218838;
+    color: #fff;
+}
+
+.btn-buy {
+    background-color: #ff6b6b;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-buy:hover {
+    background-color: #e63946;
+    color: #fdf8ef;
+}
+
+.quantity-input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+.product-info .old-price {
+    text-decoration: line-through;
+    color: #ccc;
+    margin-right: 5px;
+}
+
+.product-info .price {
+    font-size: 1.2rem;
+    color: #276b49;
+    display: block; /* Ensure price takes up the full width */
+}
+.info-section {
+    border: 1px solid #333;
+    padding: 15px;    color: #111;
+    border-radius: 5px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info-item i {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+
+.share-icon {
+    width: 50px;  /* Ensure width and height are the same for a circle */
+    height: 50px;
+    border-radius: 50%;  /* Make the shape a circle */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    font-size: 1.5rem;  /* Adjust icon size */
+    color: white;  /* Text color */
+    transition: background-color 0.3s ease;
+    padding: 0;  /* Remove padding */
+}
+
+.share-icon i {
+    margin: 0;  /* Remove any default margin */
+}
+
+.share-icon.btn-primary {
+    background-color: #3b5998;  /* Facebook blue */
+    border: none;
+}
+
+.share-icon.btn-success {
+    background-color: #25D366;  /* WhatsApp green */
+    border: none;
+}
+
+.share-icon.btn-danger {
+    background-color: #E1306C;  /* Instagram pink */
+    border: none;
+}
+
+.share-icon.btn-secondary {
+    background-color: #333;  /* Dark color for copy link */
+    border: none;
+}
+
+.share-icon:hover {
+    opacity: 0.8;  /* Slightly darken on hover */
+}
+a{
+    text-decoration: none;
+}
+.price-section {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.discount-price {
+    color: #FBD757;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.original-price {
+    color: #ffcc00;
+    text-decoration: line-through;
+}
+
+.btn-whatsapp {
+    background-color: #FBD757;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.quantity-cart-buy {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-input {
+    width: 60px;
+    padding: 5px;
+    margin-right: 10px;
+    text-align: center;
+}
+.btn-cart {
+    color: white;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.btn-buy {
+    background-color: transparent;
+    color: #111;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border:  2px solid #111;
+}
+</style>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Logo -->
+        <a class="navbar-brand order-lg-1" href="#">
+            <img src="{% static 'images/jeeva_logo.png' %}" alt="Logo" width="90"> <!-- Replace with your logo -->
+        </a>
+
+        <!-- Search form -->
+        <div class="navbar-icons ms-auto order-lg-2">
+            <form method="GET" action="{% url 'search_results' %}" class="search-box d-flex align-items-center">
+                <i class="bi bi-search search" id="search-icon" style="cursor: pointer;"></i>
+                <input type="text" id="search-input" name="q" placeholder="Search..." class="form-control">
+            </form>
+            
+            <a class="nav-link" href="{% url 'orders' %}"><i class="bi bi-receipt" id="user-icon" style="cursor: pointer; margin-left: 10px;"></i></a>
+            <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-bag"></i></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Second Navbar with Links -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarLinks">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                {% for category in categories %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'category_products' category.id %}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<br><br>
+
+<div class="container" style="margin-top: 90px;">
+    <div class="row">
+        <!-- Left Column: Product Image -->
+        <div class="col-lg-6 pt-5">
+            <div class="container product-sliders">
+                <!-- Main Carousel for large product images -->
+                <div class="row">
+                    <div class="col-12">
+                        <div id="main-carousel" class="owl-carousel owl-theme">
+                            {% if product.images.all %}
+{% for image in product.images.all %}
+    <div class="item">
+        <img src="{{ image.image.url }}" class="main-image img-fluid" alt="{{ product.heading }}">
+    </div>
+{% endfor %}
+{% else %}
+<div class="item">
+    <div class="no-image" style="width: 100px; height: auto; text-align: center;">No Image</div>
+</div>
+{% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Thumbnail Carousel for navigation -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div id="thumb-carousel" class="owl-carousel thumbnails">
+                            {% if product.images.all %}
+                            {% for image in product.images.all %}
+                                <div class="item">
+                                    <img src="{{ image.image.url }}" class="thumbnail img-fluid" alt="{{ product.heading }}">
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="item">
+                                <div class="no-image" style="width: 100px; height: auto; text-align: center;">No Image</div>
+                            </div>
+                        {% endif %}
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Product Details -->
+        <div class="col-lg-6 pt-5">
+            <!-- Product Heading -->
+            <h1 class="product-heading">{{ product.name }}</h1>
+        
+            <!-- Star Rating and SKU -->
+            <div class="rating-sku">
+                <span class="rating">★★★☆☆ 3.00</span>
+                <span class="sku">SKU: {{ product.slug }}</span>
+            </div>
+        
+            <!-- Divider Line -->
+            <hr class="divider">
+        
+            <!-- Product Description -->
+            <div class="product-description">
+                <p>
+                    {{ product.description|safe }}
+                </p>
+            </div>
+        
+            <!-- Price Section -->
+            <div class="price-section">
+                {% if product.discount_price %}
+                    <span class="discount-price">₹{{ product.discount_price }}</span>
+                    <span class="original-price">₹{{ product.price }}</span>
+                {% else %}
+                    <span class="price">₹{{ product.original_price }}</span>
+                {% endif %}
+            </div>
+        
+            <!-- Order on WhatsApp Button -->
+            {% if product.stock > 0 %}
+            <a href="https://api.whatsapp.com/send?phone=+917025306368&text=I want to order {{ product.heading }} for ₹{% if product.discount_price %}{{ product.discount_price }}{% else %}{{ product.original_price }}{% endif %}" class="btn btn-whatsapp">Order on WhatsApp</a>
+        {% else %}
+            <a href="#" class="btn btn-whatsapp disabled" aria-disabled="true">Out of Stock</a>
+        {% endif %}
+                    
+            <!-- Quantity Input and Add to Cart/Buy Now Buttons -->
+            <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                {% csrf_token %}
+                <div class="quantity-cart-buy mt-3">
+                    {% if product.stock > 0 %}
+                        <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+                        <button type="submit" class="btn btn-cart">Add to Cart</button>
+                        <!-- Buy Now Button -->
+                        <button type="submit" class="btn btn-buy">Buy Now</button>
+                    {% else %}
+                        <p class="out-of-stock-text" style="color: red;">Out of Stock</p>
+                    {% endif %}
+                </div>
+            </form>
+            
+        
+            <!-- Payment and Warranty Information -->
+            <div class="info-section mt-4">
+                <div class="info-item">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment: Payment upon receipt of goods, Payment by card in the department, Google Pay, Online card, -5% discount in case of payment</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Warranty: The Consumer Protection Act does not provide for the return of this product of proper quality.</span>
+                </div>
+            </div>
+        
+            <!-- Wishlist, Share, and Compare Buttons -->
+            <div class="action-buttons mt-4">
+                <form action="" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <!-- <button type="submit" class="btn btn-outline-secondary">
+                        <i class="fas fa-heart"></i> Add to Wishlist
+                    </button> -->
+                </form>
+                
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#shareModal">
+                    <i class="fas fa-share-alt"></i> Share this Product
+                </button>   
+<!-- Modal Structure -->
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true" >
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="shareModalLabel">Share This Product</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+    </div>
+    <div class="modal-body text-center">
+      <!-- Social Media Icons -->
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share-icon btn-primary">
+          <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank" class="share-icon btn-success">
+          <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}" target="_blank" class="share-icon btn-danger">
+          <i class="fab fa-instagram"></i>
+      </a>
+      <button id="copyLink" class="share-icon btn-secondary">
+          <i class="fas fa-copy"></i>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+            
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<section class="related-products">
+    <div class="container">
+        <h3>Related Products</h3>
+        <div class="row">
+            {% for related_product in related_products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="product-card">
+                    {% if product.images.first %}
+                        <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.heading }}">
+                    {% else %}
+                        <p>No Image</p>
+                    {% endif %}
+                    
+                    <h5>{{ related_product.name }}</h5>
+                    <p class="price">₹{{ related_product.price }}</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center logo">
+                <img src="{% static 'images/jeeva_logo.png' %}" alt="Company Logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>About Us</h5>
+                <p>We are a leading company in providing the best quality products to our customers.</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <p><a href="#">Home</a></p>
+                <p><a href="#">Shop</a></p>
+                <p><a href="#">Blog</a></p>
+                <p><a href="#">Contact</a></p>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <p>123 Street Name, City, Country</p>
+                <p>Email: info@company.com</p>
+                <p>Phone: +123 456 7890</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    
+<!-- Include Bootstrap JS and Bootstrap Icons -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+<script>
+    document.getElementById('search-icon').addEventListener('click', function() {
+            var searchInput = document.getElementById('search-input');
+            searchInput.classList.toggle('show');
+            searchInput.focus();
+        });
+   var mainCarousel = $('#main-carousel');
+var thumbCarousel = $('#thumb-carousel');
+            
+                mainCarousel.owlCarousel({
+                    items: 1,
+                    nav: false,
+                    dots: false,
+                    loop: false,
+                    autoplay: false,
+                    onChanged: syncPosition
+                });
+            
+                thumbCarousel.owlCarousel({
+                    items: 3,
+                    margin: 10,
+                    nav: false,
+                    dots: false,
+                    center: true,
+                    loop: false,
+                    responsive: {
+                        0: {
+                            items: 2
+                        },
+                        600: {
+                            items: 2
+                        },
+                        1000: {
+                            items: 5
+                        }
+                    }
+                });
+            
+                function syncPosition(event) {
+                    var index = event.item.index;
+                    thumbCarousel
+                        .find(".owl-item")
+                        .removeClass("active-thumbnail")
+                        .eq(index)
+                        .addClass("active-thumbnail");
+                    var onscreen = thumbCarousel.find('.owl-item.active').length - 1;
+                    var start = thumbCarousel.find('.owl-item.active').first().index();
+                    var end = thumbCarousel.find('.owl-item.active').last().index();
+            
+                    if (index > end) {
+                        thumbCarousel.trigger('to.owl.carousel', [index - onscreen, 300, true]);
+                    }
+                    if (index < start) {
+                        thumbCarousel.trigger('to.owl.carousel', [index - 1, 300, true]);
+                    }
+                }
+            
+                thumbCarousel.on('click', '.owl-item', function (e) {
+                    e.preventDefault();
+                    var index = $(this).index();
+                    mainCarousel.trigger('to.owl.carousel', [index, 300, true]);
+                });
+            
+                thumbCarousel.on('changed.owl.carousel', function (event) {
+                    var index = event.item.index;
+                    mainCarousel.trigger('to.owl.carousel', [index, 300, true]);
+                });
+
+</script>
+
+</body>
+</html>
